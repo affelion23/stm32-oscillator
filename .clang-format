@@ -1,0 +1,35 @@
+# ============================================================
+# .clang-format —— Linux Style + TabWidth = 4
+# ============================================================
+
+# ---------- 1. Basic ----------
+BasedOnStyle: LLVM
+Language: C
+ColumnLimit: 80
+
+# ---------- 2. Indent and Tab----------
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+IndentCaseLabels: false
+
+# ---------- 3. Alignment ----------
+AlignConsecutiveAssignments: true
+AlignTrailingComments: true
+AlignAfterOpenBracket: Align
+AlignOperands: Align
+PointerAlignment: Left
+
+# ---------- 4. Braces ----------
+BreakBeforeBraces: Linux
+AllowShortFunctionsOnASingleLine: None
+AlwaysBreakAfterReturnType: None
+
+# ---------- 5. Comments and Spces ----------
+SpacesInParentheses: false
+SpacesBeforeTrailingComments: 1
+ReflowComments: true
+
+# ---------- 6. Others ----------
+SortIncludes: Never
