@@ -7,6 +7,7 @@
 #define __SGL_CONFIG_H__
 
 #define CONFIG_SGL_FBDEV_PIXEL_DEPTH 16 // 颜色深度，这里是16位，即RGB565
+#define CONFIG_SGL_FBDEV_PIXEL_MODE_MSB 1 // 自定义配置, 适配ST7789MSB模式
 #define CONFIG_SGL_FBDEV_ROTATION                                              \
     270 // 屏幕旋转角度，软件旋转，这里设置为0度，即不做旋转
 #define CONFIG_SGL_FBDEV_RUNTIME_ROTATION 0 // 屏幕实时旋转角度

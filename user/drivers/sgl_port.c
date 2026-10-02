@@ -17,7 +17,6 @@ static void panel_flush_area(sgl_area_t* area, sgl_color_t* src)
     lcd_update_range(area->x1, area->y1, area->x2, area->y2);
     // 非阻塞式刷新函数, 使用DMA
     lcd_update_image((uint8_t*)src, w * h * sizeof(sgl_color_t));
-    // //
     // 调用sgl_fbdev_flush_ready()函数，告诉SGL框架，刷新完成，可以继续处理下一帧处理
     // sgl_fbdev_flush_ready();
 }
@@ -58,11 +57,11 @@ static void uart_put_string(const char* str)
 
 void sgl_start(void)
 {
-    sgl_fbinfo_t fbinfo = {.xres        = PANEL_WIDTH,
-                           .yres        = PANEL_HEIGHT,
-                           .flush_area  = panel_flush_area,
-                           .buffer[0]   = panel_buffer_1,
-                        //    .buffer[1]   = panel_buffer_2,
+    sgl_fbinfo_t fbinfo = {.xres       = PANEL_WIDTH,
+                           .yres       = PANEL_HEIGHT,
+                           .flush_area = panel_flush_area,
+                           .buffer[0]  = panel_buffer_1,
+                           //    .buffer[1]   = panel_buffer_2,
                            .buffer_size = BUFFER_SIZE};
 
 #if CONFIG_SGL_DEBUG
@@ -81,14 +80,13 @@ void sgl_start(void)
 
     sgl_init();
 
-    // 添加一个测试代码
-    sgl_obj_t* label = sgl_label_create(NULL);
+    sgl_obj_t* new_page = sgl_obj_create(NULL);
+    sgl_page_set_color(new_page, SGL_COLOR_BRIGHT_BLUE);
+    sgl_screen_load(new_page);
+    sgl_obj_t* label = sgl_label_create(new_page);
     sgl_obj_set_size(label, PANEL_WIDTH, 30);
     sgl_obj_set_pos_align(label, SGL_ALIGN_CENTER);
     sgl_label_set_font(label, &consolas24);
+    // sgl_label_set_text_color(label, SGL_COLOR_BLACK);
     sgl_label_set_text(label, "Hello SGL!");
-
-    sgl_obj_t *new_page = sgl_obj_create(NULL);
-    sgl_page_set_color(new_page, SGL_COLOR_YELLOW);
-    sgl_screen_load(new_page);
 }

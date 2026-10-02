@@ -137,7 +137,7 @@ void lcd_start(void)
         [(BLOCK_SIZE * BLOCK_SIZE / 2)...(BLOCK_SIZE * BLOCK_SIZE - 1)] =
             0x0000};
     lcd_update_image((uint8_t*)block_1, sizeof(block_1));
-    HAL_Delay(3000);
+    HAL_Delay(500);
     // 2
     lcd_update_range(0x0046, 0x006e, 0x00a9, 0x00d1);
     static const uint16_t block_2[BLOCK_SIZE * BLOCK_SIZE] = {
@@ -145,5 +145,5 @@ void lcd_start(void)
         [(BLOCK_SIZE * BLOCK_SIZE / 2)...(BLOCK_SIZE * BLOCK_SIZE - 1)] =
             0x1f00};
     lcd_update_image((uint8_t*)block_2, sizeof(block_2));
-    HAL_Delay(3000);
+    HAL_Delay(500);
 }
