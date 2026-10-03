@@ -63,8 +63,8 @@ FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 256K
 _estack = ORIGIN(RAM) + LENGTH(RAM);    /* end of RAM */
 _sstack = _estack - _Min_Stack_Size;
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0x200;      /* required amount of heap  */
-_Min_Stack_Size = 0x400; /* required amount of stack */
+_Min_Heap_Size = 0x000;      /* required amount of heap  */
+_Min_Stack_Size = 0x600; /* required amount of stack */
 
 /* Define output sections */
 SECTIONS
@@ -87,8 +87,8 @@ SECTIONS
     *(.glue_7t)        /* glue thumb to arm code */
     *(.eh_frame)
 
-    KEEP (*(.init))
-    KEEP (*(.fini))
+    /* KEEP (*(.init)) */
+    /* KEEP (*(.fini)) */
 
     . = ALIGN(4);
     _etext = .;        /* define a global symbols at end of code */
@@ -119,7 +119,7 @@ SECTIONS
     . = ALIGN(4);
   } >FLASH
 
-  .preinit_array (READONLY) : /* The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
+  /* .preinit_array (READONLY) : The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. 
   {
     . = ALIGN(4);
     PROVIDE_HIDDEN (__preinit_array_start = .);
@@ -128,7 +128,7 @@ SECTIONS
     . = ALIGN(4);
   } >FLASH
 
-  .init_array (READONLY) : /* The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
+  .init_array (READONLY) :  The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. 
   {
     . = ALIGN(4);
     PROVIDE_HIDDEN (__init_array_start = .);
@@ -138,7 +138,7 @@ SECTIONS
     . = ALIGN(4);
   } >FLASH
 
-  .fini_array (READONLY) : /* The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
+  .fini_array (READONLY) :  The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. 
   {
     . = ALIGN(4);
     PROVIDE_HIDDEN (__fini_array_start = .);
@@ -146,7 +146,7 @@ SECTIONS
     KEEP (*(.fini_array*))
     PROVIDE_HIDDEN (__fini_array_end = .);
     . = ALIGN(4);
-  } >FLASH
+  } >FLASH */
 
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);

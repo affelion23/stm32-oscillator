@@ -15,36 +15,10 @@ static void panel_flush_area(sgl_area_t* area, sgl_color_t* src)
     uint16_t w = area->x2 - area->x1 + 1;
     uint16_t h = area->y2 - area->y1 + 1;
     lcd_update_range(area->x1, area->y1, area->x2, area->y2);
-    // 非阻塞式刷新函数, 使用DMA
+    // 阻塞式刷新函数, 使用DMA
     lcd_update_image((uint8_t*)src, w * h * sizeof(sgl_color_t));
     // 调用sgl_fbdev_flush_ready()函数，告诉SGL框架，刷新完成，可以继续处理下一帧处理
-    // sgl_fbdev_flush_ready();
-}
-
-void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef* hspi)
-{
-    extern SPI_HandleTypeDef hspi1;
-    if (hspi == &hspi1) {
-        // BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-        // /* The event has occurred, use the semaphore to unblock the task so
-        // the task can process the event. */ xSemaphoreGiveFromISR(lcd_sem,
-        // &xHigherPriorityTaskWoken);
-        // /* Clear the interrupt here. */
-        // /* Now the task has been unblocked a context switch should be
-        // performed if xHigherPriorityTaskWoken is equal to pdTRUE. NOTE: The
-        // syntax required to perform a context switch from an ISR varies from
-        // port to port, and from compiler to compiler. Check the web
-        // documentation and examples for the port being used to find the syntax
-        // required for your application. */
-        // portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-
-        // 调用sgl_fbdev_flush_ready()函数，告诉SGL框架，刷新完成，可以继续处理下一帧处理
-        sgl_fbdev_flush_ready();
-        // 拉高NSS, 在没有阻塞函数(FreeRTOS下就是vTaskDelay系列)的情况下,
-        // 要在txcpltcb中再拉高NSS, 不能在lcd数据传输函数中拉高,
-        // 因为那时传输并未完成, 会提前导致传输结束
-        HAL_GPIO_WritePin(lcd_nss_GPIO_Port, lcd_nss_Pin, GPIO_PIN_SET);
-    }
+    sgl_fbdev_flush_ready();
 }
 
 #if CONFIG_SGL_DEBUG
@@ -76,17 +50,25 @@ void sgl_start(void)
     // 将 sgl_tick_inc(1) 添加到SysTick_Handle
     // 或者void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
     // 如果时基配置为定时器的话
-    lcd_start();
-
+    // 注意, sgl启动之后, 就不可以使用非阻塞延时了,
+    // 由于sgl使用脏区域标记加上到时更新(sgl_tick_inc(1)),
+    // 因此非阻塞延时会导致cpu一直被占用而sgl tick不被更新,
+    // 也就无法完成刷新操作!
+    lcd_init();
     sgl_init();
 
     sgl_obj_t* new_page = sgl_obj_create(NULL);
     sgl_page_set_color(new_page, SGL_COLOR_BRIGHT_BLUE);
     sgl_screen_load(new_page);
-    sgl_obj_t* label = sgl_label_create(new_page);
-    sgl_obj_set_size(label, PANEL_WIDTH, 30);
-    sgl_obj_set_pos_align(label, SGL_ALIGN_CENTER);
-    sgl_label_set_font(label, &consolas24);
-    // sgl_label_set_text_color(label, SGL_COLOR_BLACK);
-    sgl_label_set_text(label, "Hello SGL!");
+    // sgl_obj_t* label = sgl_label_create(new_page);
+    // sgl_obj_set_size(label, PANEL_WIDTH, 30);
+    // sgl_obj_set_pos_align(label, SGL_ALIGN_CENTER);
+    // sgl_label_set_font(label, &consolas24);
+    // // sgl_label_set_text_color(label, SGL_COLOR_BLACK);
+    // sgl_label_set_text(label, "Hello SGL!");
+    sgl_obj_t* ball = sgl_2dball_create(new_page);
+    sgl_obj_set_pos_align(ball, SGL_ALIGN_CENTER);
+    sgl_obj_set_size(ball, 200, 200);
+    sgl_2dball_set_color(ball, SGL_COLOR_YELLOW);
+    sgl_2dball_set_radius(ball, 50);
 }

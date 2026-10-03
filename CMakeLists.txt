@@ -25,6 +25,14 @@ enable_language(C ASM)
 add_executable(${CMAKE_PROJECT_NAME})
 
 # ============================================================
+# Compile commands (user)
+# ============================================================
+# .map with cross reference table
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
+    -Wl,--cref
+)
+
+# ============================================================
 # Compile definitions (user)
 # ============================================================
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
@@ -36,8 +44,10 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # ============================================================
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
+    ${CMAKE_CURRENT_SOURCE_DIR}/user/config/user_config.c
     ${CMAKE_CURRENT_SOURCE_DIR}/user/drivers/lcd.c
     ${CMAKE_CURRENT_SOURCE_DIR}/user/drivers/sgl_port.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/user/tasks/lcd_task.c
 )
 
 # ============================================================
@@ -47,6 +57,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     ${CMAKE_CURRENT_SOURCE_DIR}/user/drivers/
     ${CMAKE_CURRENT_SOURCE_DIR}/user/config/
+    ${CMAKE_CURRENT_SOURCE_DIR}/user/tasks/
 )
 
 # ============================================================
