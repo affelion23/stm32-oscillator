@@ -33,7 +33,7 @@ static void lcd_send_cmd_without_dma(uint8_t cmd)
     HAL_GPIO_WritePin(lcd_cs_GPIO_Port, lcd_cs_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(lcd_nss_GPIO_Port, lcd_nss_Pin, GPIO_PIN_RESET);
 
-    HAL_SPI_Transmit(&hspi1, &cmd, 1,HAL_MAX_DELAY);
+    HAL_SPI_Transmit(&hspi1, &cmd, 1, HAL_MAX_DELAY);
 
     HAL_GPIO_WritePin(lcd_nss_GPIO_Port, lcd_nss_Pin, GPIO_PIN_SET);
 }
@@ -67,7 +67,7 @@ static void lcd_send_data_without_dma(uint8_t* data, uint16_t size)
     HAL_GPIO_WritePin(lcd_cs_GPIO_Port, lcd_cs_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(lcd_nss_GPIO_Port, lcd_nss_Pin, GPIO_PIN_RESET);
 
-    HAL_SPI_Transmit(&hspi1, data, size,HAL_MAX_DELAY);
+    HAL_SPI_Transmit(&hspi1, data, size, HAL_MAX_DELAY);
 
     HAL_GPIO_WritePin(lcd_nss_GPIO_Port, lcd_nss_Pin, GPIO_PIN_SET);
 }
@@ -122,12 +122,15 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef* hspi)
         /* Clear the interrupt here. */
         // if (flush_flag == 1) {
         //     flush_flag = 0;
-        //     // 调用sgl_fbdev_flush_ready()函数，告诉SGL框架，刷新完成，可以继续处理下一帧处理
+        //     //
+        //     调用sgl_fbdev_flush_ready()函数，告诉SGL框架，刷新完成，可以继续处理下一帧处理
         //     sgl_fbdev_flush_ready();
-        //     // // 拉高NSS, 在没有阻塞函数(FreeRTOS下就是vTaskDelay系列)的情况下,
+        //     // // 拉高NSS,
+        //     在没有阻塞函数(FreeRTOS下就是vTaskDelay系列)的情况下,
         //     // // 要在txcpltcb中再拉高NSS, 不能在lcd数据传输函数中拉高,
         //     // // 因为那时传输并未完成, 会提前导致传输结束
-        //     // HAL_GPIO_WritePin(lcd_nss_GPIO_Port, lcd_nss_Pin, GPIO_PIN_SET);
+        //     // HAL_GPIO_WritePin(lcd_nss_GPIO_Port, lcd_nss_Pin,
+        //     GPIO_PIN_SET);
         // }
 
         /* Now the task has been unblocked a context switch should be

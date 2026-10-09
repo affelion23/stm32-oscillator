@@ -27,9 +27,13 @@ add_executable(${CMAKE_PROJECT_NAME})
 # ============================================================
 # Compile commands (user)
 # ============================================================
-# .map with cross reference table
 target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
+    -Wl,-Map=${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.map
     -Wl,--cref
+    -Wl,--print-memory-usage
+    -Wl,--gc-sections
+    -Wl,--print-map-locals
+    -Wl,--print-map-discarded
 )
 
 # ============================================================

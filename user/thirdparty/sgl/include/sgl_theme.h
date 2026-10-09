@@ -57,8 +57,9 @@ extern "C" {
 #define SGL_THEME_SCROLL_FG_COLOR            sgl_rgb(200, 200, 200)
 
 #elif (CONFIG_SGL_THEME_LIGHT)
+#define SGL_THEME_DESKTOP                    sgl_rgb(255, 255, 255)
 #define SGL_THEME_COLOR                      sgl_rgb(189, 212, 243)
-#define SGL_THEME_BG_COLOR                   sgl_rgb(255, 255, 255)
+#define SGL_THEME_BG_COLOR                   sgl_rgb(200, 200, 200)
 #define SGL_THEME_BORDER_WIDTH               2
 #define SGL_THEME_BORDER_COLOR               sgl_rgb(0, 0, 0)
 #define SGL_THEME_ALPHA                      255
