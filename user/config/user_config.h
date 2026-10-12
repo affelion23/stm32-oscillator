@@ -1,6 +1,9 @@
 #ifndef _GENERAL_INCLUDE_H_
 #define _GENERAL_INCLUDE_H_
 
+#define PANEL_WIDTH 240
+#define PANEL_HEIGHT 320
+
 #define TEST 0
 
 #endif // _GENERAL_INCLUDE_H_

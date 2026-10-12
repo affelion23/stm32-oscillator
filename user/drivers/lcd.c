@@ -1,3 +1,4 @@
+#include "user_config.h"
 #include "lcd.h"
 #include "main.h"
 #include "sgl_port.h"
@@ -143,10 +144,11 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef* hspi)
     }
 }
 
-// test
+#if TEST
 #define BLOCK_SIZE 100
+#endif
 
-// !使用了非阻塞延时, 不可在任务循环中调用!
+// !使用了阻塞延时, 必须在调度器启动后调用!
 void lcd_init(void)
 {
     // 关闭背光
@@ -154,16 +156,13 @@ void lcd_init(void)
 
     // reset
     HAL_GPIO_WritePin(lcd_rst_GPIO_Port, lcd_rst_Pin, GPIO_PIN_RESET);
-    // vTaskDelay(pdMS_TO_TICKS(1));
-    HAL_Delay(1);
+    vTaskDelay(pdMS_TO_TICKS(1));
     HAL_GPIO_WritePin(lcd_rst_GPIO_Port, lcd_rst_Pin, GPIO_PIN_SET);
-    // vTaskDelay(pdMS_TO_TICKS(125));
-    HAL_Delay(125);
+    vTaskDelay(pdMS_TO_TICKS(125));
 
     // 退出睡眠模式
     lcd_send_cmd_without_dma(0x11);
-    // vTaskDelay(pdMS_TO_TICKS(125));
-    HAL_Delay(125);
+    vTaskDelay(pdMS_TO_TICKS(125));
 
     // 设置色彩格式为RGB565
     // COLMOD (3Ah)
@@ -182,7 +181,7 @@ void lcd_init(void)
     // 开启背光
     lcd_bl_control(1);
 
-    // // test
+#if TEST
     // // 1
     // // col addr
     // lcd_send_cmd_without_dma(0x2a);
@@ -204,4 +203,5 @@ void lcd_init(void)
     //         0x1f00};
     // lcd_update_image((uint8_t*)block_2, sizeof(block_2));
     // HAL_Delay(500);
+#endif
 }

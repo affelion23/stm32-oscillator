@@ -1,7 +1,6 @@
 #include "user_config.h"
 #include "FreeRTOS.h"
 #include "task.h"
-
 #include "lcd_task.h"
 
 void init_task(void const* argument)

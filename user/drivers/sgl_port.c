@@ -1,7 +1,10 @@
+#include "user_config.h"
+#include "sgl_config.h"
 #include "sgl_port.h"
+#include "sgl_draw.h"
+#include "sgl_core.h"
 #include "lcd.h"
 #include "sgl.h"
-#include "sgl_config.h"
 #include "main.h"
 #include <string.h>
 
@@ -28,6 +31,47 @@ static void uart_put_string(const char* str)
     HAL_UART_Transmit(&huart1, (const uint8_t*)str, strlen(str), HAL_MAX_DELAY);
 }
 #endif
+
+uint8_t rand_data[200] = {
+    0, 5, 10, 15, 20, 25, 29, 34, 39, 44, 49, 54,
+    58, 63, 68, 72, 77, 81, 85, 89, 94, 98, 101, 105,
+    109, 113, 116, 120, 123, 126, 129, 132, 135, 137, 140, 142,
+    144, 146, 148, 150, 152, 153, 154, 156, 157, 158, 158, 159,
+    159, 159, 160, 159, 159, 159, 158, 158, 157, 156, 154, 153,
+    152, 150, 148, 146, 144, 142, 140, 137, 135, 132, 129, 126,
+    123, 120, 116, 113, 109, 105, 101, 98, 94, 89, 85, 81,
+    77, 72, 68, 63, 58, 54, 49, 44, 39, 34, 29, 25,
+    20, 15, 10, 5, 0, 5, 10, 15, 20, 25, 29, 34,
+    39, 44, 49, 54, 58, 63, 68, 72, 77, 81, 85, 89,
+    94, 98, 101, 105, 109, 113, 116, 120, 123, 126, 129, 132,
+    135, 137, 140, 142, 144, 146, 148, 150, 152, 153, 154, 156,
+    157, 158, 158, 159, 159, 159, 160, 159, 159, 159, 158, 158,
+    157, 156, 154, 153, 152, 150, 148, 146, 144, 142, 140, 137,
+    135, 132, 129, 126, 123, 120, 116, 113, 109, 105, 101, 98,
+    94, 89, 85, 81, 77, 72, 68, 63, 58, 54, 49, 44,
+    39, 34, 29, 25, 20, 15, 10, 5
+};
+
+void painter_func(sgl_surf_t* surf, sgl_area_t* area, sgl_obj_t* obj)
+{
+    // 警惕 off-by-one
+    for (int i = 0; i < obj->coords.x2 - obj->coords.x1 + 1; i++) {
+        // get relative coord
+        int16_t coord_x = obj->coords.x1 + i;
+        int16_t coord_y =
+            obj->coords.y1 + ((obj->coords.y2 - obj->coords.y1) - rand_data[i]);
+        int16_t surf_x = coord_x - surf->x1;
+        int16_t surf_y = coord_y - surf->y1;
+
+        // check range, clip
+        if (surf_x < 0 || surf_x > surf->x2 - surf->x1 || surf_y < 0 ||
+            surf_y > surf->y2 - surf->y1) {
+            continue;
+        } else {
+            sgl_surf_set_pixel(surf, surf_x, surf_y, SGL_COLOR_BLUE);
+        }
+    }
+}
 
 void sgl_start(void)
 {
@@ -57,18 +101,20 @@ void sgl_start(void)
     lcd_init();
     sgl_init();
 
-    sgl_obj_t* new_page = sgl_obj_create(NULL);
-    sgl_page_set_color(new_page, SGL_COLOR_BRIGHT_BLUE);
-    sgl_screen_load(new_page);
-    // sgl_obj_t* label = sgl_label_create(new_page);
-    // sgl_obj_set_size(label, PANEL_WIDTH, 30);
-    // sgl_obj_set_pos_align(label, SGL_ALIGN_CENTER);
-    // sgl_label_set_font(label, &consolas24);
-    // // sgl_label_set_text_color(label, SGL_COLOR_BLACK);
-    // sgl_label_set_text(label, "Hello SGL!");
-    sgl_obj_t* ball = sgl_2dball_create(new_page);
-    sgl_obj_set_pos_align(ball, SGL_ALIGN_CENTER);
-    sgl_obj_set_size(ball, 200, 200);
-    sgl_2dball_set_color(ball, SGL_COLOR_YELLOW);
-    sgl_2dball_set_radius(ball, 50);
+    sgl_obj_t* page = sgl_obj_create(NULL);
+    sgl_page_set_color(page, SGL_COLOR_WHITE);
+    sgl_screen_load(page);
+
+    sgl_obj_t* label = sgl_label_create(page);
+    sgl_obj_set_pos(label, 250, 200);
+    sgl_obj_set_size(label, 35, 15);
+    sgl_label_set_font(label, &consolas14);
+    sgl_label_set_text(label, "label");
+    sgl_label_set_bg_color(label, SGL_COLOR_LIGHT_SEA_GREEN);
+    // sgl_label_set_radius(label, 25);
+
+    sgl_obj_t* canvas = sgl_canvas_create(page);
+    sgl_obj_set_pos(canvas, 10, 10);
+    sgl_obj_set_size(canvas, 200, 160);
+    sgl_canvas_set_painter_cb(canvas, painter_func);
 }

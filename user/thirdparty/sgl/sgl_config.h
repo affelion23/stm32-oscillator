@@ -320,7 +320,7 @@
  * Enable Consolas 14pt font (small monospace).
  * Standard default: 0
  */
-#define CONFIG_SGL_FONT_CONSOLAS14              0
+#define CONFIG_SGL_FONT_CONSOLAS14              1
 
 /*
  * Enable Consolas 23pt font.
@@ -332,7 +332,7 @@
  * Enable Consolas 24pt font (clean monospace, suitable for general UI).
  * Standard default: 0
  */
-#define CONFIG_SGL_FONT_CONSOLAS24              1
+#define CONFIG_SGL_FONT_CONSOLAS24              0
 
 /*
  * Enable Consolas 32pt font (large display font).
@@ -373,6 +373,6 @@
  * When enabled, sgl_boot_animation() can be called once during init.
  * Standard default: 1
  */
-#define CONFIG_SGL_BOOT_LOGO                    1
+#define CONFIG_SGL_BOOT_LOGO                    0
 
 #endif // __SGL_CONFIG_H__

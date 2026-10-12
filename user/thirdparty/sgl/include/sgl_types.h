@@ -314,7 +314,6 @@ extern "C" {
 
 #endif
 
-#if !CONFIG_SGL_FBDEV_PIXEL_MODE_MSB
 /**
  * Define some basic colors
 */
@@ -377,125 +376,6 @@ extern "C" {
 #define SGL_COLOR_MISTY_ROSE                    sgl_rgb(0xFF, 0xE4, 0xE1)
 #define SGL_COLOR_SEASHELL                      sgl_rgb(0xFF, 0xF5, 0xEE)
 #define SGL_COLOR_FLORAL_WHITE                  sgl_rgb(0xFF, 0xFA, 0xF0)
-#else
-#define SGL_COLOR_RED                           sgl_rgb(0x00, 0x1C, 0xC0)
-   /* MSB-fix; orig: 0xFF, 0x00, 0x00 */
-#define SGL_COLOR_GREEN                         sgl_rgb(0xE0, 0x00, 0x38)
-   /* MSB-fix; orig: 0x00, 0xFF, 0x00 */
-#define SGL_COLOR_BLUE                          sgl_rgb(0x18, 0xE0, 0x00)
-   /* MSB-fix; orig: 0x00, 0x00, 0xFF */
-#define SGL_COLOR_WHITE                         sgl_rgb(0xF8, 0xFC, 0xF8)
-   /* MSB-fix; orig: 0xFF, 0xFF, 0xFF */
-#define SGL_COLOR_BLACK                         sgl_rgb(0x00, 0x00, 0x00)
-   /* MSB-fix; orig: 0x00, 0x00, 0x00 */
-#define SGL_COLOR_CYAN                          sgl_rgb(0xF8, 0xE0, 0x38)
-   /* MSB-fix; orig: 0x00, 0xFF, 0xFF */
-#define SGL_COLOR_MAGENTA                       sgl_rgb(0x18, 0xFC, 0xC0)
-   /* MSB-fix; orig: 0xFF, 0x00, 0xFF */
-#define SGL_COLOR_YELLOW                        sgl_rgb(0xE0, 0x1C, 0xF8)
-   /* MSB-fix; orig: 0xFF, 0xFF, 0x00 */
-#define SGL_COLOR_GRAY                          sgl_rgb(0x10, 0x10, 0x20)
-   /* MSB-fix; orig: 0x80, 0x80, 0x80 */
-#define SGL_COLOR_DARK_GRAY                     sgl_rgb(0x08, 0x08, 0x10)
-   /* MSB-fix; orig: 0x40, 0x40, 0x40 */
-#define SGL_COLOR_LIGHT_GRAY                    sgl_rgb(0x18, 0x18, 0x30)
-   /* MSB-fix; orig: 0xC0, 0xC0, 0xC0 */
-#define SGL_COLOR_BRIGHT_PURPLE                 sgl_rgb(0x18, 0xFC, 0xC0)
-   /* MSB-fix; orig: 0xFF, 0x00, 0xFF */
-#define SGL_COLOR_BRIGHT_BLUE                   sgl_rgb(0xF8, 0xE0, 0x38)
-   /* MSB-fix; orig: 0x00, 0xFF, 0xFF */
-#define SGL_COLOR_ORANGE                        sgl_rgb(0x20, 0x1C, 0xE8)
-   /* MSB-fix; orig: 0xFF, 0xA5, 0x00 */
-#define SGL_COLOR_DARK_ORANGE                   sgl_rgb(0x60, 0x1C, 0xE0)
-   /* MSB-fix; orig: 0xFF, 0x8C, 0x00 */
-#define SGL_COLOR_RED_ORANGE                    sgl_rgb(0x20, 0x1C, 0xD0)
-   /* MSB-fix; orig: 0xFF, 0x45, 0x00 */
-#define SGL_COLOR_GOLD                          sgl_rgb(0xA0, 0x1C, 0xF0)
-   /* MSB-fix; orig: 0xFF, 0xD7, 0x00 */
-#define SGL_COLOR_GOLDENROD                     sgl_rgb(0x20, 0x98, 0xE8)
-   /* MSB-fix; orig: 0xDA, 0xA5, 0x20 */
-#define SGL_COLOR_BROWN                         sgl_rgb(0x40, 0xB4, 0x08)
-   /* MSB-fix; orig: 0xA5, 0x2A, 0x2A */
-#define SGL_COLOR_SADDLE_BROWN                  sgl_rgb(0x20, 0x50, 0x50)
-   /* MSB-fix; orig: 0x8B, 0x45, 0x13 */
-#define SGL_COLOR_TOMATO                        sgl_rgb(0x08, 0x1C, 0xD8)
-   /* MSB-fix; orig: 0xFF, 0x63, 0x47 */
-#define SGL_COLOR_CORAL                         sgl_rgb(0xE8, 0x5C, 0xD8)
-   /* MSB-fix; orig: 0xFF, 0x7F, 0x50 */
-#define SGL_COLOR_SALMON                        sgl_rgb(0x08, 0xDC, 0xE0)
-   /* MSB-fix; orig: 0xFA, 0x80, 0x72 */
-#define SGL_COLOR_LIME                          sgl_rgb(0x60, 0xC4, 0xB0)
-   /* MSB-fix; orig: 0x32, 0xCD, 0x32 */
-#define SGL_COLOR_OLIVE                         sgl_rgb(0x00, 0x10, 0x20)
-   /* MSB-fix; orig: 0x80, 0x80, 0x00 */
-#define SGL_COLOR_DARK_OLIVE_GREEN              sgl_rgb(0x40, 0xA8, 0x98)
-   /* MSB-fix; orig: 0x55, 0x6B, 0x2F */
-#define SGL_COLOR_FOREST_GREEN                  sgl_rgb(0x40, 0xA4, 0x20)
-   /* MSB-fix; orig: 0x22, 0x8B, 0x2F */
-#define SGL_COLOR_DARK_GREEN                    sgl_rgb(0x20, 0x00, 0x18)
-   /* MSB-fix; orig: 0x00, 0x64, 0x00 */
-#define SGL_COLOR_LAWN_GREEN                    sgl_rgb(0xE0, 0x0C, 0xF8)
-   /* MSB-fix; orig: 0x7C, 0xFC, 0x00 */
-#define SGL_COLOR_CHARTREUSE                    sgl_rgb(0xE0, 0x0C, 0xF8)
-   /* MSB-fix; orig: 0x7F, 0xFF, 0x00 */
-#define SGL_COLOR_YELLOW_GREEN                  sgl_rgb(0x60, 0xD0, 0xF0)
-   /* MSB-fix; orig: 0x9A, 0xCD, 0x32 */
-#define SGL_COLOR_SPRING_GREEN                  sgl_rgb(0xE8, 0xE0, 0x38)
-   /* MSB-fix; orig: 0x00, 0xFF, 0x7F */
-#define SGL_COLOR_DEEP_SKY_BLUE                 sgl_rgb(0xF8, 0xE0, 0x28)
-   /* MSB-fix; orig: 0x00, 0xBF, 0xFF */
-#define SGL_COLOR_DODGER_BLUE                   sgl_rgb(0x98, 0xE0, 0xE0)
-   /* MSB-fix; orig: 0x1E, 0x90, 0xFF */
-#define SGL_COLOR_ROYAL_BLUE                    sgl_rgb(0x58, 0x88, 0x18)
-   /* MSB-fix; orig: 0x41, 0x69, 0xE1 */
-#define SGL_COLOR_MIDNIGHT_BLUE                 sgl_rgb(0xC8, 0xC0, 0xC0)
-   /* MSB-fix; orig: 0x19, 0x19, 0x70 */
-#define SGL_COLOR_NAVY                          sgl_rgb(0x10, 0x00, 0x00)
-   /* MSB-fix; orig: 0x00, 0x00, 0x80 */
-#define SGL_COLOR_TEAL                          sgl_rgb(0x10, 0x00, 0x20)
-   /* MSB-fix; orig: 0x00, 0x80, 0x80 */
-#define SGL_COLOR_DARK_CYAN                     sgl_rgb(0x50, 0x20, 0x20)
-   /* MSB-fix; orig: 0x00, 0x8B, 0x8B */
-#define SGL_COLOR_LIGHT_SEA_GREEN               sgl_rgb(0x90, 0xA4, 0x28)
-   /* MSB-fix; orig: 0x20, 0xB2, 0xAA */
-#define SGL_COLOR_CADET_BLUE                    sgl_rgb(0xF0, 0x88, 0xE0)
-   /* MSB-fix; orig: 0x5F, 0x9E, 0xA0 */
-#define SGL_COLOR_INDIGO                        sgl_rgb(0x10, 0x08, 0x40)
-   /* MSB-fix; orig: 0x4B, 0x00, 0x82 */
-#define SGL_COLOR_VIOLET                        sgl_rgb(0x18, 0xBC, 0x60)
-   /* MSB-fix; orig: 0xEE, 0x82, 0xEE */
-#define SGL_COLOR_DARK_VIOLET                   sgl_rgb(0x18, 0x50, 0x80)
-   /* MSB-fix; orig: 0x94, 0x00, 0xD3 */
-#define SGL_COLOR_MEDIUM_VIOLET_RED             sgl_rgb(0xB0, 0x18, 0x00)
-   /* MSB-fix; orig: 0xC7, 0x15, 0x85 */
-#define SGL_COLOR_PINK                          sgl_rgb(0x18, 0x3C, 0xF0)
-   /* MSB-fix; orig: 0xFF, 0xC0, 0xCB */
-#define SGL_COLOR_HOT_PINK                      sgl_rgb(0x50, 0xDC, 0xD8)
-   /* MSB-fix; orig: 0xFF, 0x69, 0xB4 */
-#define SGL_COLOR_DEEP_PINK                     sgl_rgb(0xB0, 0x5C, 0xC0)
-   /* MSB-fix; orig: 0xFF, 0x14, 0x93 */
-#define SGL_COLOR_PLUM                          sgl_rgb(0x18, 0x78, 0xE8)
-   /* MSB-fix; orig: 0xDD, 0xA0, 0xDD */
-#define SGL_COLOR_ORCHID                        sgl_rgb(0x98, 0x58, 0xD8)
-   /* MSB-fix; orig: 0xDA, 0x70, 0xD6 */
-#define SGL_COLOR_TAN                           sgl_rgb(0xB0, 0x38, 0xA8)
-   /* MSB-fix; orig: 0xD2, 0xB4, 0x8C */
-#define SGL_COLOR_WHEAT                         sgl_rgb(0xF0, 0xDC, 0xB0)
-   /* MSB-fix; orig: 0xF5, 0xDE, 0xB3 */
-#define SGL_COLOR_SAND                          sgl_rgb(0x90, 0x58, 0x28)
-   /* MSB-fix; orig: 0xC2, 0xB2, 0x90 */
-#define SGL_COLOR_BEIGE                         sgl_rgb(0xB8, 0x7C, 0xB8)
-   /* MSB-fix; orig: 0xF5, 0xF5, 0xDC */
-#define SGL_COLOR_IVORY                         sgl_rgb(0xF8, 0xDC, 0xF8)
-   /* MSB-fix; orig: 0xFF, 0xFF, 0xF0 */
-#define SGL_COLOR_LAVENDER                      sgl_rgb(0x38, 0xFC, 0x38)
-   /* MSB-fix; orig: 0xE6, 0xE6, 0xFA */
-#define SGL_COLOR_MISTY_ROSE                    sgl_rgb(0x38, 0x9C, 0xF8)
-   /* MSB-fix; orig: 0xFF, 0xE4, 0xE1 */
-#define SGL_COLOR_SEASHELL                      sgl_rgb(0xB8, 0xBC, 0xF8)
-   /* MSB-fix; orig: 0xFF, 0xF5, 0xEE */
-#define SGL_COLOR_FLORAL_WHITE                  sgl_rgb(0xD8, 0xDC, 0xF8)   /* MSB-fix; orig: 0xFF, 0xFA, 0xF0 */
-#endif
 
 #ifdef __cplusplus
 }

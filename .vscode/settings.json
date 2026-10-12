@@ -10,6 +10,7 @@
         "--clang-tidy",
         "--all-scopes-completion",
         "--completion-style=detailed",
+        "--function-arg-placeholders=false",
         "--header-insertion=never",
         "--pch-storage=disk",
         "--log=error",

@@ -1,3 +1,19 @@
+typedef struct {
+    const float* Waveform;  // 波形数据
+    uint16_t WaveLength;    // 波形数据的长度
+    uint16_t XOffset;       // 波形显示的起始位置
+    float XScale;           // X轴尺度因子，单位s/格
+    float YScale;           // Y轴尺度因子，单位V/格
+    uint32_t SampleRate;    // 采样率，单位Hz
+    int8_t CursorX1Pct;     // x轴游标1的百分比位置，单位%，范围0~100
+    int8_t CursorY1Pct;     // y轴游标1的百分比位置，单位%，范围-100~+100
+    int8_t CursorX2Pct;     // x轴游标2的百分比位置，单位%，范围0~100
+    int8_t CursorY2Pct;     // y轴游标2的百分比位置，单位%，范围-100~+100
+    float Trigger;          // 触发电压，单位V
+
+} WaveformParamTypeDef;
+
+
 /**
   ******************************************************************************
   * @file    spi.c
