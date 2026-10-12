@@ -60,6 +60,7 @@ set(USER_INCLUDES
     User/Drivers/GUI/
     User/Tasks/
     # User/Tasks/GUI/
+    Drivers/CMSIS/DSP/Include
 )
 
 # ------------------------------------------------------------------------------
@@ -87,6 +88,7 @@ set(USER_INCLUDES
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined library search paths
     User/Drivers/GUI
+    Drivers/CMSIS/Lib/GCC/libarm_cortexM3l_math.a
 )
 
 # Add linked libraries
@@ -103,6 +105,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
+    ARM_MATH_CM3
 )
 
 # ------------------------------------------------------------------------------

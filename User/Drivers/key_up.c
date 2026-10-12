@@ -1,6 +1,6 @@
 #include "key.h"
 #include "buzzer.h"
-// #include "my_uart.h"
+#include "my_uart.h"
 #include "panel_generator.h"
 #include "panel_runmode.h"
 #include "panel_scale.h"
@@ -8,14 +8,21 @@
 
 const char* key_up_msg = "key_up_pressed\n";
 
+// #include "FreeRTOS.h"
+// #include <stdio.h>
+// char min_heap_char[16];
+
 static void key_up_callback(key_event_t event) {
     if (event == KEY_EVENT_CLICK) {
         buzzer_beep();
-        // uart_action(&key_up_msg);
         panel_generator_adjust(+1);
         panel_runmode_adjust(+1);
         panel_scale_adjust(+1);
         panel_cursor_adjust(+1);
+
+        // size_t min_heap = xPortGetMinimumEverFreeHeapSize();
+        // snprintf(min_heap_char, sizeof(min_heap_char), "%u\n", (unsigned int)min_heap);
+        // uart_action(min_heap_char);
     }
 }
 

@@ -8,7 +8,7 @@
 
 #define GEN_DATA_LEN 1000
 
-static uint16_t gen_data[GEN_DATA_LEN] = {0};
+// static uint16_t gen_data[GEN_DATA_LEN] = {0};
 static uint16_t gen_data_len = GEN_DATA_LEN;
 
 // waveform
