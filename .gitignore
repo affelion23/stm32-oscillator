@@ -1,3 +1,5 @@
 !.vscode/
 build/
 user/tools/
+.reasonix/
+\!ref/
